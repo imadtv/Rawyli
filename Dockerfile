@@ -1,20 +1,10 @@
-# Base image
-FROM node:18-alpine
+# Dockerfile
+FROM datarhei/restreamer:latest
 
-# Set working directory
-WORKDIR /app
+# (اختياري) إذا أردت إضافة ملفات افتراضية أو config:
+# COPY ./my-config.json /core/config/
 
-# Install git to clone repository
-RUN apk add --no-cache git bash curl
+# exposed ports (documentation uses these)
+EXPOSE 8080 8181 1935 1936 6000/udp
 
-# Clone Dataheri Restreamr repository
-RUN git clone https://github.com/dataheri/Restreamr.git .
-
-# Install Node.js dependencies
-RUN npm install
-
-# Expose port (Railway يستخدم 8080 عادة)
-EXPOSE 8080
-
-# Start the app
-CMD ["npm", "start"]
+# image already has entrypoint — لا حاجة لتعريف CMD هنا
